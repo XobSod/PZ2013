@@ -1,0 +1,47 @@
+Sensory:
+
+Monitor:
+
+Odbiera zdarzenia i reaguje na nie. Powinien koordynować działanie innych komponentów.
+Komunikuje się przez warstwę webową ze światem.
+
+Sensory - monitor
+
+
+Kanał komunikacji:
+Komunikacja paczkami (1 ramka, 10 pomiarów)
+Sensor startuje, musi znaleźć monitor (1), prawdopodobnie musi się rejestrować w
+monitorze(2), wysyła wiadomość, monitor zapisuje ten sensor (do mapy listy), monitor
+dodaje nowe pomiary zasoby, widać to na warstwie web, REST API wystawione na http
+
+Monitor – pomiary złożone
+
+Integracja wewnątrz komponentu,
+Zdefiniować interfejs do tworzenia pomiarów złożonych,
+Dane dostarczane przez monitor
+Monitor ma listę pomiarów złożonych, którą uzupełnia pomiarami prostymi
+Pomiary złożone będą przychodzić przez http do monitora
+Pomiary przetwarzają specyfikacje i tworzą stan (reprezentacje pomiaru złożonego
+Pomiar złożony <– monitor (komunikacja do uzgodnienia)
+http –> monitor -> pomiar złożony
+
+(?) Pomiary złożone jako pośrednik między sensorem, a monitorem (raczej głupi pomysł)
+
+GUI – monitor
+
+
+Jak wyżej, to już jest napisane w wymaganiach
+Monitor musi być webserwerem – http,
+Przeglądarka musi się komunikować z webserwerem
+Ustalić ten cholerny interfejs przeglądarka -> monitor
+Wystawiamy API do komunikacji (monitor) jakaś propozycja na mailu
+
+Testy:
+
+•
+
+Testy systemu jako całości, produkują tickety
+
+Środowisko? Architektura?
+
+AD (1) na sztywno
