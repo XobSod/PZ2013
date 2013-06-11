@@ -1,0 +1,101 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package zespolowe;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author Sylwia Wnek
+ */
+class UpdateMeasurement implements Runnable {
+    //SimpleMeasurement measure; //do pobierania danych z prostego pomiaru
+    ArrayList<Measurement> complex;
+    MeasurementContainer container;
+    Measurement m;
+    static int size = 10; //musza byc wyznaczane
+    static int sizeContainer = 20; // pobierane z container
+    UpdateMeasurement(){
+        complex = new ArrayList();
+        int i;
+        
+        
+        for (i=0;i<sizeContainer;i++){
+            m = container.getById(i);
+            if (m.type.equals("complex")){ // zrobic sprawdzanie za pomoca getClass
+                complex.add(m);
+            }
+        }
+    }
+    
+    @Override
+    public void run() {
+        updateList();
+        collectData();
+        updateResults();
+        try {Thread.sleep(10000);} 
+        catch(Exception e){System.out.println(e.toString());}
+    }
+    
+    public void collectData(){
+        int i,j;
+        SimpleMeasurement simple;
+        ComplexMeasurement complex;
+        String name;
+        ArrayList<Data> data;
+        Data d;
+        int last;
+        
+        for (i=0;i<size;i++){
+            complex = (ComplexMeasurement)this.complex.get(i);
+            name = complex.name;
+            simple = (SimpleMeasurement)container.getByName(name);
+            
+            data = simple.getData();
+            d = simple.getData().get(data.size()-1); //czy wczytywac ostatnie 30 po prostu ?
+            String complexData=d.getData();
+            complex.collectData(complexData);
+        }
+    }
+    
+    public void updateResults(){
+        int i;
+        
+        for (i=0;i<size;i++){
+            ComplexMeasurement c = (ComplexMeasurement)complex.get(i);
+            c.doOperation();
+            String name = c.name;
+            container.getByName(name).addData(0, name);
+        }
+    }
+    
+    public void updateList(){
+        int i,j;
+        ComplexMeasurement c;
+        Measurement m;
+        for (i=0;i<sizeContainer;i++){
+            m = container.getById(i); //poprawic na znajdowanie id po numerach
+            String nameM="";
+            if (m.type.equals("complex")) {
+                nameM = m.getName();
+                
+                for (j=0;j<size;j++){
+                    if (!nameM.equals(container.getById(i).getName())){ //zmienic na getClass
+                        complex.add(m);
+                    }
+                }
+            }  
+        }
+    }
+    
+    public void createComplex(){ //prowizoryczna funkcja do tworzenia zlozonych pomiarow dla kazdego prostego
+        int i;
+        for (i=0;i<size;i++){           
+            ComplexMeasurement c = new ComplexMeasurement(container.getById(i).getName());
+            container.addMeasurement(c);
+        }
+    }
+    
+}
