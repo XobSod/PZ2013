@@ -1,60 +1,53 @@
 package zespolowe;
 
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.Random;
 
 
 /**
  *
  * @author Sylwia Wnek
  */
-public class ComplexMeasurement implements Measurement{
+class ComplexMeasurement implements Measurement{
+    private int time;
+    private int number;
+    private String operation;
+    private String simpleName; 
+    private int id;
+    private String name;
+    private boolean initialized;
+    
+    private boolean dataCollected = false;
+    private int result;
+    private LinkedList <Data> dataList = new LinkedList();
+    
+
     ComplexMeasurement(String simpleName){
         this.time = 5;
         this.number = 30;
         this.operation = "mean";
         this.simpleName = simpleName;
-        this.type = "complex";
+        this.id = new SimpleMeasurement("").getID();
+        this.name = simpleName+id;       
+        this.initialized = false;
+
+        MeasurementContainer.addMeasurement(this); //
     }
     
-    /**
-     * 
-     * @param time przedzial czasu, dla ktorego wykonywane sa obliczenia
-     * @param operation nazwa wykonywanych obliczen
-     */
-     ComplexMeasurement(int time,String operation, String simpleName){
+     ComplexMeasurement(int time, String operation, String simpleName, String name){
         this.time = time;
         this.number = time*6;
         this.operation = operation;
         this.simpleName = simpleName;
+        this.id = new SimpleMeasurement("").getID();        
+        this.name = name;
+        this.initialized = false;
+        
+        MeasurementContainer.addMeasurement(this); //
     }
     
-    int number;
-    int time;
-    String operation;
-    String name; // potrzebne ?
-    String simpleName; //pomiar prosty, z ktorego pochodzi
-    String type;
-    boolean isComplex = true;
-    int id;
-    LinkedList <String> data = new LinkedList();
-    
-    
-    boolean dataCollected = false;
-    /**
-     * Wynik pomiaru.
-     */
-    protected int result = -1;
-    /**
-     *
-     */
-    protected String operationTime;
-    int delay = 1000;
-    
+
     public String getSimpleName(){
         return simpleName;
     }
@@ -63,60 +56,14 @@ public class ComplexMeasurement implements Measurement{
         this.simpleName = name;
     }
    
-    /**
-     * Zwraca wynik pomiaru.
-     * @return
-     */
     public int getResult() {
         return result;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getOperationTime() {       
-        return operationTime;
-    }
-    
-    public int getID(){
-        return id;
-    }
-    
-    /**
-     * Zbiera dane.
-     */
-    public void collectData(String insertData){
-        Random rand = new Random();
-        if (data.size()<number){
-            data.add(insertData);
-        }
-        else {
-            dataCollected = true;
-            data.poll();
-            data.add(insertData);
-        }
-    }
-    
-    /**
-     * Liczy srednia.
-     */
-    public void mean(){
-        
-        int i;
-        int sum=0;
-        
-        for (i=0;i<number;i++){
-            sum += new Integer(data.get(i));
-        }
-        
-        this.result = sum/number;
-        
+    public void setResult(int result){
+        this.result = result;
     }
 
-    /**
-     * Wywoluje odpowiednia operacje na podstawie pola operation.
-     */
     public void doOperation(){
         if (dataCollected){
             switch(operation){
@@ -128,72 +75,75 @@ public class ComplexMeasurement implements Measurement{
         }
     }
     
-    /**
-     * Znajduje maksymalna wartosc z zadanej ilosci pomiarow.
-     */
-    public void maksimum(){
+    private void mean(){        
+        int sum = 0;
         
-        int i;
+        for (int i=0;i<number;i++){
+            sum += new Integer(dataList.get(i).getData());
+        }
+        
+        this.result = sum/number;
+    }    
+    
+    private void maksimum(){
         int max;
         
-        max = new Integer(data.get(0));
+        max = new Integer(dataList.get(0).getData());
         
-        for (i=0;i<number;i++){
-            if (max<new Integer(data.get(i))){max = new Integer(data.get(i));}
+        for (int i=0;i<number;i++){
+            if (max<new Integer(dataList.get(i).getData())){max = new Integer(dataList.get(i).getData());}
         }
         
         result = max;
     }
-    
-    /**
-     * Znajduje minimalna wartosc z zadanej ilosci pomiarow.
-     */    
-    public void minimum(){
-        
-        int i;
+      
+    private void minimum(){
         int min;
         
-        min = new Integer(data.get(0));
+        min = new Integer(dataList.get(0).getData());
         
-        for (i=0;i<number;i++){
-            if (min<new Integer(data.get(i))){min = new Integer(data.get(i));}
+        for (int i=0;i<number;i++){
+            if (min<new Integer(dataList.get(i).getData())){min = new Integer(dataList.get(i).getData());}
         }
         
-        this.result = min;
+        result = min;
+    }
+
+    
+    @Override
+    public void addData(long timestamp, String data){
+        if (dataList.size()<number){
+            dataList.add(new Data(timestamp,data));
+        }
+        else {
+            dataCollected = true;
+            dataList.poll();
+            dataList.add(new Data(timestamp,data));
+        }
+    }    
+        
+    @Override
+    public int getID(){
+        return id;
     }
     
-    /**
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        ComplexMeasurement cm = new ComplexMeasurement(5,"mean","cpu");
-//        cm.run();
-    }
-
-
-    @Override
-    public void addData(long timestamp, String data) {
-        
-    }
-
     @Override
     public ArrayList<Data> getData() {
-        return null;
+        return new ArrayList<>(dataList);
     }
 
     @Override
     public String getName() {
-        return "";
+        return this.name;
     }
 
     @Override
     public boolean isInitialized() {
-        return true;
+        return initialized;
     }
 
     @Override
     public void setInitialized(boolean b) {
-        
+        this.initialized = b;
     }
 }
