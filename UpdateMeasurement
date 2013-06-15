@@ -41,12 +41,14 @@ class UpdateMeasurement{
                 id = ids.get(i);
                 currentComplex = (ComplexMeasurement)currentMeasurement;
                 simpleName = currentComplex.getSimpleName();
-                simple = (SimpleMeasurement)MeasurementContainer.getByName(simpleName);
-                data = simple.getData();
-
-                d = data.get(data.size()-1);
-                currentComplex.addData((new Date()).getTime(),d.getData()); 
-                MeasurementContainer.setMeasurement(id, currentComplex);
+                
+                if (MeasurementContainer.existMeasurement(simpleName)){
+                    simple = (SimpleMeasurement)MeasurementContainer.getByName(simpleName);
+                    data = simple.getData();
+                    d = data.get(data.size()-1);
+                
+                    currentComplex.addData(d); 
+                }
             }
 
         }
@@ -68,7 +70,6 @@ class UpdateMeasurement{
                 id = ids.get(i);
                 currentComplex = (ComplexMeasurement)currentMeasurement;
                 currentComplex.doOperation();
-                MeasurementContainer.setMeasurement(id, currentComplex);
             }
         }             
     }
@@ -86,6 +87,7 @@ class UpdateMeasurement{
                 
             }
         }
+        
     }
         
 }
