@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Mesurments
  */
-public class MesurmentsServlet extends HttpServlet {
+public class MeasurementsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MesurmentsServlet() {
+    public MeasurementsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,7 +38,7 @@ public class MesurmentsServlet extends HttpServlet {
 	        out.println("<html>");
 	        out.println("<head>");
 	        out.println("<body>");
-	        ArrayList<Integer> ids=MesurmentContainer.getIDs();
+	        ArrayList<Integer> ids=MeasurementContainer.getIDs();
 	        System.out.println(ids);
 	        for(int i:ids)
 	        	out.println("<a href=\"Mesurments?id="+i+"\">"+i+"</a>");
@@ -47,8 +47,8 @@ public class MesurmentsServlet extends HttpServlet {
 	        out.println("</html>");
         }else{
         	response.setContentType("application/json");
-        	Mesurment m=MesurmentContainer.getById(Integer.parseInt(id));
-        	out.println(MesurmentContainer.getJSON(m));
+        	Measurement m=MeasurementContainer.getById(Integer.parseInt(id));
+        	out.println(MeasurementContainer.getJSON(m));
         }
         
         

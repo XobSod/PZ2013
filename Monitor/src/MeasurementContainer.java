@@ -3,17 +3,17 @@ import java.util.Date;
 
 
 
-public  class MesurmentContainer {
+public  class MeasurementContainer {
 	private static Object lock=new Object();
-	private static ArrayList<Mesurment> mesurments=new ArrayList<Mesurment>();
+	private static ArrayList<Measurement> mesurments=new ArrayList<Measurement>();
 	static{
-		SimpleMesurment m=new SimpleMesurment("test1");
+		SimpleMeasurement m=new SimpleMeasurement("test1");
 		m.addData((new Date()).getTime(), "0.5");
 		m.addData((new Date()).getTime(), "0.56");
 		m.addData((new Date()).getTime(), "0.6");
 		mesurments.add(m);
-		mesurments.add(new SimpleMesurment("test2"));
-		mesurments.add(new SimpleMesurment("test3"));
+		mesurments.add(new SimpleMeasurement("test2"));
+		mesurments.add(new SimpleMeasurement("test3"));
 			
 		//(new Thread(new SensorReciver())).start();
 		
@@ -26,14 +26,14 @@ public  class MesurmentContainer {
 			getByName(data[0]).addData((new Date()).getTime(), data[2]);
 		}
 		else{
-			SimpleMesurment m=new SimpleMesurment(data[0]);
+			SimpleMeasurement m=new SimpleMeasurement(data[0]);
 			mesurments.add(m);
 			m.addData((new Date()).getTime(), data[2]);
 		}
 			
 		}
 	}
-	public static String getJSON(Mesurment m){
+	public static String getJSON(Measurement m){
 		StringBuilder sb=new StringBuilder();
 		sb.append("{ ");
 		
@@ -51,20 +51,20 @@ public  class MesurmentContainer {
 	}
 	public static ArrayList<Integer> getIDs(){
 		ArrayList<Integer> list=new ArrayList<Integer>();
-		for(Mesurment m:mesurments){
+		for(Measurement m:mesurments){
 			list.add(m.getID());
 		}
 		return list;
 	}
-	public static Mesurment getById(int id){
-		for(Mesurment m:mesurments){
+	public static Measurement getById(int id){
+		for(Measurement m:mesurments){
 			if(m.getID()==id)
 				return m;
 		}
 		return null;
 	}
-	public static Mesurment getByName(String name){
-		for(Mesurment m:mesurments){
+	public static Measurement getByName(String name){
+		for(Measurement m:mesurments){
 			if(m.getName().equals(name))
 				return m;
 		}
@@ -72,7 +72,7 @@ public  class MesurmentContainer {
 	}
 	public static boolean existMesurment(String name){
 		System.out.println("name: "+name);
-		for(Mesurment m:mesurments){
+		for(Measurement m:mesurments){
 			System.out.println("m.name: "+m.getName());
 			if(m.getName().equals(name))
 				return true;
@@ -80,7 +80,7 @@ public  class MesurmentContainer {
 		return false;
 	}
 	
-	synchronized public static void addMesurment(Mesurment m){
+	synchronized public static void addMeasurement(Measurement m){
 		if(existMesurment(m.getName()))
 			return;
 		mesurments.add(m);

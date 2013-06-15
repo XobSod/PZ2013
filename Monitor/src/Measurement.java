@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 
-public interface Mesurment {
+public interface Measurement {
 
 	public abstract void addData(long timestamp, String data);
 

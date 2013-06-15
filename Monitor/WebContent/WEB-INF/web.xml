@@ -16,7 +16,7 @@
     <description></description>
     <display-name>Mesurments</display-name>
     <servlet-name>Mesurments</servlet-name>
-    <servlet-class>MesurmentsServlet</servlet-class>
+    <servlet-class>MeasurementsServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Mesurments</servlet-name>

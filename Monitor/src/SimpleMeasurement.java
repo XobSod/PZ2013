@@ -3,7 +3,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class SimpleMesurment implements Mesurment {
+public class SimpleMeasurement implements Measurement {
 	private static AtomicInteger count=new AtomicInteger();
 	public static final int SIZE=50;
 	private String name;
@@ -11,7 +11,7 @@ public class SimpleMesurment implements Mesurment {
 	private boolean initialized;
 	private ConcurrentLinkedQueue<Data> dataList =new ConcurrentLinkedQueue<Data>();
 	
-	public SimpleMesurment(String name){
+	public SimpleMeasurement(String name){
 		this.name=name;
 		id=count.incrementAndGet();
 		initialized=false;

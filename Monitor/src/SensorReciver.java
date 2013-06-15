@@ -21,6 +21,7 @@ public class SensorReciver extends Thread
             // Construct the socket
             socket = new DatagramSocket(port);
             System.out.println("The server is ready...");
+        	UpdateMeasurement updateMeasurement=new UpdateMeasurement();
 
             for (;;)
             {
@@ -30,7 +31,7 @@ public class SensorReciver extends Thread
                 // Receive a packet (blocking)
                 socket.receive(packet);
                 String str=new String(packet.getData());
-                MesurmentContainer.parseSensorData(str);
+                MeasurementContainer.parseSensorData(str);
                 // Print the packet
                 System.out.println(packet.getAddress() + " " + packet.getPort() + ": " + str);
 
