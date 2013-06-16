@@ -9,6 +9,7 @@
         <script type="text/javascript" src="jquery.flot.min.js" ></script>
         <script type="text/javascript" src="main.js" ></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
         <style type="text/css">
             #Plot{
                 width: 400px;
@@ -19,7 +20,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>assaHello World!</h1>
+        <h1>Monitor GUI</h1>
+        <h3 id="PlotName">Please select plot</h3>
         <div id="Plot"></div>
+        <form action="" onsubmit="return RefreshMesurmentsButtons(this);">
+            <button type="submit">Refresh mesurements list!</button>
+        </form>
+        <div id="MesurmentsButtons"> </div>
     </body>
 </html>
