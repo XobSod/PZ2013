@@ -1,27 +1,27 @@
-Aby odpaliæ wrzuciæ wara do folderu /webapps tomcata.
-Albo oczywiœcie odpaliæ Ÿród³a przy pomocy jakiegoœ ide.
+Aby odpaliï¿½ wrzuciï¿½ wara do folderu /webapps tomcata.
+Albo oczywiï¿½cie odpaliï¿½ ï¿½rï¿½dï¿½a przy pomocy jakiegoï¿½ ide.
 Testowane na tomcacie 6.
 
 
-Co zosta³o zrobione:
--Zrobiona zosta³a klasa Mesurment, która odpowiada jednemu pomiarowi(do wykorzystania w pomiarach z³o¿onych).
-	*getJSON() trzeba przerobiæ metode getJSON jak siê dogadamy z sensorami co do ramek.
--Servlet który dzia³a jak interfejs RESTowy(albo tak mi siê przynajmniej wydaje).
-	Aby zobaczyæ dzia³anie servletu po odpaleniu aplikacji na serverze przejœæ pod adres:
+Co zostaï¿½o zrobione:
+-Zrobiona zostaï¿½a klasa Mesurment, ktï¿½ra odpowiada jednemu pomiarowi(do wykorzystania w pomiarach zï¿½oï¿½onych).
+	*getJSON() trzeba przerobiï¿½ metode getJSON jak siï¿½ dogadamy z sensorami co do ramek.
+-Servlet ktï¿½ry dziaï¿½a jak interfejs RESTowy(albo tak mi siï¿½ przynajmniej wydaje).
+	Aby zobaczyï¿½ dziaï¿½anie servletu po odpaleniu aplikacji na serverze przejï¿½ï¿½ pod adres:
 	[host:port]/[app_name]/Mesurments
 	czyli np.:
-	http://localhost:8080/Monitor/Mesurments
-	Zostanie wyœwietlona lista linków do pomiarów np.:
-	http://localhost:8080/Monitor/Mesurments?id=1
+	http://localhost:8080/Monitor/Measurements
+	Zostanie wyï¿½wietlona lista linkï¿½w do pomiarï¿½w np.:
+	http://localhost:8080/Monitor/Measurements?id=1
 
--Klasa SensorReciver odbiera dane z sensorów. Jest odpalana jako osobny w¹tek.
+-Klasa SensorReciver odbiera dane z sensorï¿½w. Jest odpalana jako osobny wï¿½tek.
 -Klasa MesurmentContainer to kontener na pomiary
-	*metoda parseSensorData() bêdzie równie¿ do zmiany jak sie dogadamy co do ramek.
-	*widze ze jakies smieci sie wrzucaja do jsona, trzeba na to spojrzeæ
+	*metoda parseSensorData() bï¿½dzie rï¿½wnieï¿½ do zmiany jak sie dogadamy co do ramek.
+	*widze ze jakies smieci sie wrzucaja do jsona, trzeba na to spojrzeï¿½
 	
 	
-Z tego co pamietam mia³y byæ dwa rodzaje ramek: jedna skrócona zawieraj¹ca tylko name, wartoœæ i date(data powinna przychodziæ z sensorów bo narazie w aplikacji mamy date zapisania pomiaru w monitorze a nie wykonania go) oraz druga zawieraj¹ca szczegó³owe dane.
-Trzeba sie dogadaæ z sensorami co to za szczegó³owe dane i ewentualnie pododawaæ pola do klasy Mesurment.
-Mój pomys³ jest taki aby wykorzystaæ flage isInitialized.
-Jeœli otrzymamy pomiar od nowego sensora i jest to krótka ramka, to tworzymy Mesurment i zaznaczamy isInitialized na false, nastêpnie za ka¿dym razem gy przyjdzie rozszerzona ramka sprawdzamy flage i ewentualnie dogryamy dane.
-Jeœli od razu przyjdzie rozszerzona ramka to nie ma problemu.
+Z tego co pamietam miaï¿½y byï¿½ dwa rodzaje ramek: jedna skrï¿½cona zawierajï¿½ca tylko name, wartoï¿½ï¿½ i date(data powinna przychodziï¿½ z sensorï¿½w bo narazie w aplikacji mamy date zapisania pomiaru w monitorze a nie wykonania go) oraz druga zawierajï¿½ca szczegï¿½owe dane.
+Trzeba sie dogadaï¿½ z sensorami co to za szczegï¿½owe dane i ewentualnie pododawaï¿½ pola do klasy Mesurment.
+Mï¿½j pomysï¿½ jest taki aby wykorzystaï¿½ flage isInitialized.
+Jeï¿½li otrzymamy pomiar od nowego sensora i jest to krï¿½tka ramka, to tworzymy Mesurment i zaznaczamy isInitialized na false, nastï¿½pnie za kaï¿½dym razem gy przyjdzie rozszerzona ramka sprawdzamy flage i ewentualnie dogryamy dane.
+Jeï¿½li od razu przyjdzie rozszerzona ramka to nie ma problemu.
