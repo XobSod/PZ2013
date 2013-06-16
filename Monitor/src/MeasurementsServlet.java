@@ -34,6 +34,7 @@ public class MeasurementsServlet extends HttpServlet {
         String id = request.getParameter("id");
         System.out.println(id);
         if(id==null){
+        	response.setHeader("Access-Control-Allow-Origin","*");
 	        response.setContentType("text/html");
 	        out.println("<html>");
 	        out.println("<head>");
@@ -46,6 +47,7 @@ public class MeasurementsServlet extends HttpServlet {
 	        out.println("</head>");
 	        out.println("</html>");
         }else{
+        	response.setHeader("Access-Control-Allow-Origin","*");
         	response.setContentType("application/json");
         	Measurement m=MeasurementContainer.getById(Integer.parseInt(id));
         	out.println(MeasurementContainer.getJSON(m));
