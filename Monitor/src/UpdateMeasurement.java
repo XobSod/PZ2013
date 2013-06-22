@@ -22,7 +22,7 @@ class UpdateMeasurement{
 /**
  * Pobiera dane z pomiarow prostych w MeasurementContainer do pomiarow zlozonych w MeasurementContainer.
  */
-    public void collectData(){
+    public static void collectData(){
         ids = MeasurementContainer.getIDs(); 
         String simpleName;
         int id;
@@ -55,7 +55,7 @@ class UpdateMeasurement{
     /**
      * Ustawia nowe wyniki pomiarow zlozonych w MeasurementContainer.
      */
-    public void updateResults(){
+    public static void updateResults(){
         int newResult;
         int id;
         
