@@ -14,10 +14,6 @@ import java.util.Date;
 class UpdateMeasurement{
     ArrayList <Integer> ids;
     ArrayList<ComplexMeasurement> complex = new ArrayList();
-    
-    //MeasurementContainer container;
-    //Measurement m;
-    //ComplexMeasurement c;
 
 /**
  * Pobiera dane z pomiarow prostych w MeasurementContainer do pomiarow zlozonych w MeasurementContainer.
