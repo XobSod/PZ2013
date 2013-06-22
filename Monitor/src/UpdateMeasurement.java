@@ -46,7 +46,6 @@ class UpdateMeasurement{
 
                 d = data.get(data.size()-1);
                 currentComplex.addData((new Date()).getTime(),d.getData()); 
-                //MeasurementContainer.setMeasurement(id, currentComplex);
             }
 
         }
@@ -68,7 +67,6 @@ class UpdateMeasurement{
                 id = ids.get(i);
                 currentComplex = (ComplexMeasurement)currentMeasurement;
                 currentComplex.doOperation();
-                //MeasurementContainer.setMeasurement(id, currentComplex);
             }
         }             
     }
