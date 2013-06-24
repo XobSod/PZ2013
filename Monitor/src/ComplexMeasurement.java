@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -27,7 +26,7 @@ class ComplexMeasurement implements Measurement{
         this.operation = "mean";
         this.simpleName = simpleName;
         this.id = new SimpleMeasurement("").getID();
-        this.name = simpleName+id;       
+        this.name = simpleName+"1";       
         this.initialized = false;
 
         MeasurementContainer.addMeasurement(this); //
