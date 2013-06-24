@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 
@@ -20,17 +21,19 @@ public  class MeasurementContainer {
 	}
 	//TODO do zmiany gdy dogadamy sie co do ramki
 	public static void parseSensorData(String recievedData){
-		String [] data= recievedData.split(" ");
+		String [] data= recievedData.split(";");
 		synchronized(lock){
-		if(existMesurment(data[0])){
-			getByName(data[0]).addData((new Date()).getTime(), data[2]);
-		}
-		else{
-			SimpleMeasurement m=new SimpleMeasurement(data[0]);
-			mesurments.add(m);
-			m.addData((new Date()).getTime(), data[2]);
-		}
-			
+		if(data.length==3) {
+			if(existMesurment(data[0])){
+				getByName(data[0]).addData((new Date()).getTime(), data[1]);
+			}
+			else{
+				SimpleMeasurement m=new SimpleMeasurement(data[0]);
+				mesurments.add(m);
+				m.addData((new Date()).getTime(), data[1]);
+			}
+				System.out.println(Arrays.asList(data));
+			}
 		}
 	}
 	public static String getJSON(Measurement m){
