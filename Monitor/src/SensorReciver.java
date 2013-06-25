@@ -34,7 +34,8 @@ public class SensorReciver extends Thread
                 MeasurementContainer.parseSensorData(str);
                 // Print the packet
                 System.out.println(packet.getAddress() + " " + packet.getPort() + ": " + str);
-
+                UpdateMeasurement.collectData();
+                UpdateMeasurement.updateResults();
                 // Return the packet to the sender
                 socket.send(packet);
             }

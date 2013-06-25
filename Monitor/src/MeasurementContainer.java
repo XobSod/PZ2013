@@ -15,7 +15,8 @@ public  class MeasurementContainer {
 		mesurments.add(m);
 		mesurments.add(new SimpleMeasurement("test2"));
 		mesurments.add(new SimpleMeasurement("test3"));
-			
+		mesurments.add(new SimpleMeasurement("test3"));
+		ComplexMeasurement cm=new ComplexMeasurement(m.getName());
 		//(new Thread(new SensorReciver())).start();
 		
 	}

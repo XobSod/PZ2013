@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Sylwia Wnek
  */
 class UpdateMeasurement{
-    ArrayList <Integer> ids;
+    static ArrayList <Integer> ids;
     ArrayList<ComplexMeasurement> complex = new ArrayList();
 
 /**
